@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Omnisavant AI — Live AI Sales Demo</title>
+    <style>
+      :root {
+        --ink: #0f172a;
+        --muted: #64748b;
+        --bg: #f8fafc;
+        --brand: #4f46e5;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        color: var(--ink);
+        background: var(--bg);
+        line-height: 1.5;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px 32px;
+        border-bottom: 1px solid #e2e8f0;
+        background: #fff;
+      }
+      .logo { font-weight: 700; font-size: 18px; letter-spacing: -0.02em; }
+      nav a { color: var(--muted); text-decoration: none; margin-left: 24px; font-size: 14px; }
+      .hero { max-width: 720px; margin: 0 auto; padding: 96px 24px 96px; text-align: center; }
+      .hero h1 { font-size: 44px; line-height: 1.1; letter-spacing: -0.03em; margin: 0 0 16px; }
+      .hero p { font-size: 18px; color: var(--muted); margin: 0 0 28px; }
+      .cta {
+        display: inline-block; background: var(--brand); color: #fff; border: 0;
+        padding: 14px 24px; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer;
+      }
+
+      /* Floating launcher — a secondary trigger, always in reach as the visitor scrolls. */
+      #launcher {
+        position: fixed; right: 24px; bottom: 24px; z-index: 100;
+        background: var(--brand); color: #fff; border: 0; border-radius: 9999px;
+        padding: 14px 20px; font-size: 15px; font-weight: 600; cursor: pointer;
+        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.25);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo">◆ Omnisavant AI</div>
+      <nav>
+        <a href="#">Product</a>
+        <a href="#">Pricing</a>
+        <a href="#">Docs</a>
+        <a href="development.html">Dev</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <h1>Every product deserves a live demo.</h1>
+      <p>Talk to our AI sales agent right now — an on-demand, interactive product demo, right here on the page.</p>
+      <button class="cta" data-omnisavant-open modality="demo">Try the live demo</button>
+    </section>
+
+    <button id="launcher" data-omnisavant-open data-omnisavant-modality="chat">💬 chat</button>
+
+    <!-- Omnisavant live demo widget. Any element with data-omni-demo-open opens it. -->
+    <script src="https://embed.omnisavant.ai/embed.js" data-omnisavant-tenant="01M1BKGQV8K6TS8Z4S64Y0Z6FQ" data-omnisavant-key="mdTxp43lz2WppfN6jCQ2LGYDbzZw0WyX" async></script>
+  </body>
+</html>
