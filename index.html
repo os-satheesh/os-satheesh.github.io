@@ -60,16 +60,47 @@
     <section class="hero">
       <h1>Every product deserves a live demo.</h1>
       <p>Talk to our AI sales agent right now — an on-demand, interactive product demo, right here on the page.</p>
-      <button class="cta" data-omnisavant-open modality="demo">Try the live demo</button>
+      <button class="cta" data-omnisavant-open data-omnisavant-modality="interactive_demo">Try the live demo</button>
     </section>
 
     <button id="launcher" data-omnisavant-open data-omnisavant-modality="chat">💬 chat</button>
 
-    <!-- Omnisavant live demo widget. Any element with data-omni-demo-open opens it. -->
-    <script src="https://embed.omnisavant.ai/embed.js" 
-	    data-omnisavant-tenant="01M07S16SWRNMBSAH25EM2VFZZ"
-	    data-omnisavant-key="WUP-PG5lapU_G8A2Mvb1n49QGyyz3Sna"
-	    async>
+    <!--
+      Omnisavant live demo widget. Any element with data-omnisavant-open opens it.
+
+      The embed is configured from the URL so this page can drive any customer's
+      agent in the prod environment:
+
+          index.html?tenant=<tenant-ulid>&key=<embed-key>
+
+      Anything else you add to the query string (e.g. &modality=chat) rides along
+      as a data-omnisavant-* attribute, which the embed forwards to the demo frame.
+      With no query string the prod defaults below are used.
+    -->
+    <script>
+      (function () {
+        var EMBED_SRC = 'https://embed.omnisavant.ai/embed.js';
+        var DEFAULTS = {
+          tenant: '01M07S16SWRNMBSAH25EM2VFZZ',
+          key: 'WUP-PG5lapU_G8A2Mvb1n49QGyyz3Sna'
+        };
+
+        var config = { tenant: DEFAULTS.tenant, key: DEFAULTS.key };
+        new URLSearchParams(window.location.search).forEach(function (value, name) {
+          // Only names that survive as a data-* attribute; last one wins.
+          if (/^[A-Za-z0-9-]+$/.test(name)) config[name.toLowerCase()] = value;
+        });
+
+        var script = document.createElement('script');
+        script.src = EMBED_SRC;
+        script.async = true;
+        Object.keys(config).forEach(function (name) {
+          script.setAttribute('data-omnisavant-' + name, config[name]);
+        });
+
+        console.info('[omnisavant] prod embed config', config);
+        document.head.appendChild(script);
+      })();
     </script>
 
   </body>

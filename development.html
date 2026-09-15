@@ -65,8 +65,43 @@
 
     <button id="launcher" data-omnisavant-open data-omnisavant-modality="chat">💬 Chat</button>
 
-    <!-- Omnisavant live demo widget. Any element with data-omni-demo-open opens it. -->
-    <script src="https://embed.omnisavant-dev.click/embed.js" data-omnisavant-tenant="01M07KXWRKFK2C0AF10QEA69YF" data-omnisavant-key="FMTw6w0G_qIe0RNRf6p01XBo-TL4n0UE" async></script>
+    <!--
+      Omnisavant live demo widget. Any element with data-omnisavant-open opens it.
+
+      The embed is configured from the URL so this page can drive any customer's
+      agent in the dev environment:
+
+          development.html?tenant=<tenant-ulid>&key=<embed-key>
+
+      Anything else you add to the query string (e.g. &modality=chat) rides along
+      as a data-omnisavant-* attribute, which the embed forwards to the demo frame.
+      With no query string the dev defaults below are used.
+    -->
+    <script>
+      (function () {
+        var EMBED_SRC = 'https://embed.omnisavant-dev.click/embed.js';
+        var DEFAULTS = {
+          tenant: '01M07KXWRKFK2C0AF10QEA69YF',
+          key: 'FMTw6w0G_qIe0RNRf6p01XBo-TL4n0UE'
+        };
+
+        var config = { tenant: DEFAULTS.tenant, key: DEFAULTS.key };
+        new URLSearchParams(window.location.search).forEach(function (value, name) {
+          // Only names that survive as a data-* attribute; last one wins.
+          if (/^[A-Za-z0-9-]+$/.test(name)) config[name.toLowerCase()] = value;
+        });
+
+        var script = document.createElement('script');
+        script.src = EMBED_SRC;
+        script.async = true;
+        Object.keys(config).forEach(function (name) {
+          script.setAttribute('data-omnisavant-' + name, config[name]);
+        });
+
+        console.info('[omnisavant] dev embed config', config);
+        document.head.appendChild(script);
+      })();
+    </script>
 
   </body>
 </html>
